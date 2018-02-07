@@ -4,6 +4,9 @@ class URLConfig {
     def repo
     def url
    def pomPath
+    public URLConfig()
+    {
+    }
 
     public URLConfig(String repo, String url, String pomPath) {
         this.repo = repo
