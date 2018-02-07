@@ -17,6 +17,11 @@ class URLConfig {
     {
         return  new URLConfig (repo,url, pomPath)
     }
+    
+    public List configSplit(String urlpath)
+    {
+        return  Arrays.asList(urlpath.split("##"));
+    }
 }
 
 
