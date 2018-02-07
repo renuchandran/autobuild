@@ -4,7 +4,7 @@ def pipe(command){
     bat("type ${fileName} | more")
 
     def contents = readFile("${fileName}")
-    bat("rm ${fileName}")
+    bat("del ${fileName}")
     return contents
 }
 
