@@ -1,17 +1,18 @@
-class URLConfig{
-  String repo
-  String url
-  String pomPath
-  def assign(repo,url,pomPath){  
-    this.repo=repo
-    this.url=url
-    this.pomPath=pomPath
-  }
-   def repo(){ return this.repo }
-   def url(){ return this.url }
-   def pomPath(){ return this.pomPath }
-  
+@ToString
+class URLConfig {
+
+    def repo
+    def url
+   def pomPath
+
+    public URLConfig(String repo, String url, String pomPath) {
+        this.repo = repo
+        this.url = url
+        this.pomPath = pomPath
+    }
 }
+
+
 
 class B{
     def greet(name){ return "greet from B: $name!" }
