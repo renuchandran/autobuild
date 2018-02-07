@@ -57,8 +57,8 @@ node {
 
      }
       stage('deploy') {
-        cloudfoundry.push(artifactId, hostName, cfDeployContent, version, "development", "sadheeshorg", "https://api.run.pivotal.io")
-        cloudfoundry.mapRoute(artifactId, hostName, "development", "sadheeshorg", "https://api.run.pivotal.io")
+        cloudfoundry.push(artifactId, artifactId, cfDeployContent, version, "development", "sadheeshorg", "https://api.run.pivotal.io")
+        cloudfoundry.mapRoute(artifactId, artifactId, "development", "sadheeshorg", "https://api.run.pivotal.io")
         }
      
    
