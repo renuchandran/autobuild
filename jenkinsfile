@@ -1,67 +1,58 @@
 node {
 
-    stage ('Clone') {
+    stage ('Clone') 
+    {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
+    
     cloudfoundry = load "lib/cloudfoundry.groovy"
     shell = load "lib/shell.groovy"
-   
     def classesGroovy = load 'Classes.groovy'
-     def urlConfig = classesGroovy.URLConfig
+    def urlConfig = classesGroovy.URLConfig
     def urlConfigList=[]
     def urlConfigSplit=[]
     def urlList = new File(pwd()+'/autobuild.config') as String[]
     
     for ( item in urlList ) {
       urlConfigSplit=  urlConfig.configSplit(item)
-     urlConfigList.add(urlConfig.URLConfigItem(urlConfigSplit[0],urlConfigSplit[1], urlConfigSplit[2]))
+      urlConfigList.add(urlConfig.URLConfigItem(urlConfigSplit[0],urlConfigSplit[1], urlConfigSplit[2]))
      }
   
-    urlConfigList.eachWithIndex { item, index ->
-     echo "Building project in  "+item.repo+" with url  "+item.url+" using pom.xml file : "+item.pomPath
-       
-    def mvnHome
-    def cfDeployContent
-    def hostName 
-    def artifactId
-    def version
-    stage ('Clone') {
-        git url: item.url
-    }
-    stage('Build') {
+     urlConfigList.eachWithIndex { item, index ->
+        echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+        echo "Building project in  "+item.repo+" with url  "+item.url+" using pom.xml file : "+item.pomPath
+        echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+        def mvnHome
+        def cfDeployContent
+        def hostName 
+        def artifactId
+        def version
+        
+        stage ('Clone') {
+            git url: item.url
+        }
+        stage('Build') {
          def workspace = pwd()
          def workspacePath= workspace.replace("Program Files (x86)", "PROGRA~2");
-         echo 'workspacePath>'+workspacePath
          def pomFile=workspacePath+"/"+item.pomPath
-         
          git url : item.url
          mvnHome = tool 'maven3'
-          mvnHome=mvnHome.replace("Program Files (x86)", "PROGRA~2");
+         mvnHome=mvnHome.replace("Program Files (x86)", "PROGRA~2");
          def pom = readMavenPom file: item.pomPath
-         echo pom.version
          bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
+         version=pom.getVersion()
+         artifactId=pom.getArtifactId()
+         hostName = "${artifactId}-${version}"
+         cfDeployContent=workspacePath+"/"+pom.getArtifactId()+"/target/"+hostName+"."+pom.getPackaging()
+         echo '=================================================================================================='  
+         echo 'Artificat to be deployed to CloudFoundary : ' +cfDeployContent
          echo '=================================================================================================='
-         echo 'final artifact to deploy in cf1' +pwd()
-         echo 'final artifact to deploy in cf2' +pom.getArtifactId()
-          echo 'final artifact to deploy in cf3' +pom.getArtifactId()
-          echo 'final artifact to deploy in cf4' +pom.getVersion()
-               echo 'final artifact to deploy in cf4' +pom.getPackaging()
-          
-           version=pom.getVersion()
-           artifactId=pom.getArtifactId()
-          hostName = "${artifactId}-${version}"
-        cfDeployContent=workspacePath+"/"+pom.getArtifactId()+"/target/"+hostName+"."+pom.getPackaging()
-          
-          echo 'cfDeployContent ' +cfDeployContent
-        
-
      }
       stage('deploy') {
+        echo '==================================Deployment to CloudFoundary Started==================================================' 
         cloudfoundry.push(artifactId, artifactId+"ks2", cfDeployContent, version, "development", "sadheeshorg", "https://api.run.pivotal.io")
         cloudfoundry.mapRoute(artifactId, artifactId+"ks2", "development", "sadheeshorg", "https://api.run.pivotal.io")
-        }
-     
-   
-     
-    }
+        echo '==================================Deployment to CloudFoundary Ends==================================================' 
+      }
+   }
 }
