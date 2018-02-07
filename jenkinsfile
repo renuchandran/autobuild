@@ -1,15 +1,16 @@
 
 
 node {
+    stage ('Clone') {
+        git url: 'https://github.com/sadheeshkt/autobuild.git'
+    }
  def classesGroovy = load 'Classes.groovy'
  def urlConfig = classesGroovy.URLConfig
 def urlConfigList = []
 
 
  
-    stage ('Clone') {
-        git url: 'https://github.com/sadheeshkt/autobuild.git'
-    }
+
     echo "loop ends-----------------------22"
 
     echo "loop ends-----------------------33"
