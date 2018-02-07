@@ -34,6 +34,11 @@ node {
          def pom = readMavenPom file: item.pomPath
          echo pom.version
          bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
+         echo '=================================================================================================='
+         echo 'final artifact to deploy in cf' +pom.getBuild().getDirectory()
      }
+     
+   
+     
     }
 }
