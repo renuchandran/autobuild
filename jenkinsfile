@@ -2,7 +2,7 @@
 node {
 
 
-@groovy.transform.Canonical 
+
 class URLConfig {
   String repo
   String url
