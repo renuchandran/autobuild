@@ -22,10 +22,7 @@ def urlConfigList = []
     echo "loop ends-----------------------44"
     urlList.each {
         println it
-        echo "loop ends-----------------------55"
-        def (value1, value2,value3) = it.tokenize( '##' )
-        echo "loop ends-----------------------66"
-         echo "value1> "+value1+" value2> "+ivalue2+" value3> "+value3
+       
        
     }
   
