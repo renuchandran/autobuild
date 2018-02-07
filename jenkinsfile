@@ -22,6 +22,7 @@ node {
        
     def mvnHome
     def cfDeployContent
+    def hostName 
     stage ('Clone') {
         git url: item.url
     }
@@ -45,13 +46,20 @@ node {
           
           def version=pom.getVersion()
           def artifactId=pom.getArtifactId()
-          def hostName = "${artifactId}-${version}"
+          hostName = "${artifactId}-${version}"
         cfDeployContent=workspacePath+"/"+pom.getArtifactId()+"/target/"+hostName+"."+pom.getPackaging()
           
           echo 'cfDeployContent ' +cfDeployContent
         
 
      }
+      stage('deploy') {
+        unstash 'app-artifact'
+      
+
+        cloudfoundry.push(artifactId, hostName, cfDeployContent, version, cfSpace, cfOrg, cfApiEndpoint)
+        cloudfoundry.mapRoute(artifactId, hostName, cfSpace, cfOrg, cfApiEndpoint)
+        }
      
    
      
