@@ -1,7 +1,8 @@
 
 import groovy.json.JsonSlurper
 
-shell = load 'lib/
+shell = load 'lib/shell.groovy'
+
 def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint) {
     authenticate(cfApiEndpoint, cfOrg, cfSpace) {
         echo 'inside authenticate'
