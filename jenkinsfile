@@ -1,9 +1,10 @@
 node {
-   cloudfoundry = load "lib/cloudfoundry.groovy"
-    shell = load "lib/shell.groovy"
+
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
+    cloudfoundry = load "lib/cloudfoundry.groovy"
+    shell = load "lib/shell.groovy"
    
     def classesGroovy = load 'Classes.groovy'
     def urlConfig = classesGroovy.URLConfig
