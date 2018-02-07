@@ -1,43 +1,21 @@
-
-
 node {
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
    
- def classesGroovy = load 'Classes.groovy'
- def urlConfig = classesGroovy.URLConfig
-def urlConfigList=[]
-
- echo  "urlConfigList1.size"+urlConfigList.size()
- 
-
- echo  "urlConfigList1.size"+urlConfigList.size()
-
-
-    echo "loop ends-----------------------22"
-
-    echo "loop ends-----------------------33"
+    def classesGroovy = load 'Classes.groovy'
+    def urlConfig = classesGroovy.URLConfig
+    def urlConfigList=[]
     def urlList = new File(pwd()+'/autobuild.config') as String[]
-    echo "loop ends-----------------------44"
     for ( item in urlList ) {
-    println item
-
-        echo "loop ends-----------------------66"
-     urlConfigList.add(urlConfig.URLConfigItem("1","2", "3"))
-     echo  "urlConfigList2.size"+urlConfigList.size()
-      urlConfigList.add(urlConfig.URLConfigItem("4","5", "6"))
-      echo  "urlConfigList3.size"+urlConfigList.size()
-  }
-  echo  "urlConfigList4.size"+urlConfigList.size()
+     def (value1, value2,value3) = it.tokenize( '##' )
+     urlConfigList.add(urlConfig.URLConfigItem(value1,value2, value3))
+     }
+  
     urlConfigList.eachWithIndex { item, index ->
      echo "repo> "+item.repo+" url> "+item.url+" pomPath> "+item.pomPath
     }
   
-    
-    
-    
-    
     
     def mvnHome
     stage ('Clone') {
