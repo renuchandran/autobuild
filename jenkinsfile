@@ -2,7 +2,7 @@
 node {
 
 
-    def words = new File('autobuild.config') as String[]
+    def words = new File('../autobuild.config') as String[]
     words.each {
         println it
     }
