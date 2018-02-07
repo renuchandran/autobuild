@@ -14,24 +14,23 @@ node {
      }
   
     urlConfigList.eachWithIndex { item, index ->
-     echo "repo> "+item.repo+" url> "+item.url+" pomPath> "+item.pomPath
-    }
-  
-    
+     echo "Building project in  "+item.repo+" with url  "+item.url+" using pom.xml file : "+item.pomPath
+       
     def mvnHome
     stage ('Clone') {
-        git url: 'https://github.com/sadheeshkt/spring-cld.git'
+        git url: ${item.url}
     }
     stage('Build') {
          def workspace = pwd()
          def workspacePath= workspace.replace("Program Files (x86)", "PROGRA~2");
          echo 'workspacePath>'+workspacePath
-         def pomFile=workspacePath+"/greeting-service/pom.xml"
+         def pomFile=workspacePath+${item.pomPath}
          
-         git url : "https://github.com/sadheeshkt/spring-cld.git"
+         git url : ${item.url}
          mvnHome = tool 'maven3'
-         def pom = readMavenPom file: 'greeting-service/pom.xml'
+         def pom = readMavenPom file: ${item.pomPath}
          echo pom.version
          bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
      }
+    }
 }
