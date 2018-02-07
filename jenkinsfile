@@ -6,10 +6,11 @@ node {
     def classesGroovy = load 'Classes.groovy'
     def urlConfig = classesGroovy.URLConfig
     def urlConfigList=[]
+    def urlConfigSplit=[]
     def urlList = new File(pwd()+'/autobuild.config') as String[]
     for ( item in urlList ) {
-     
-     urlConfigList.add(urlConfig.URLConfigItem(value1,value2, value3))
+      urlConfigSplit=  urlConfig.configSplit(item)
+     urlConfigList.add(urlConfig.URLConfigItem(urlConfigSplit[0],urlConfigSplit[1], urlConfigSplit[2]))
      }
   
     urlConfigList.eachWithIndex { item, index ->
