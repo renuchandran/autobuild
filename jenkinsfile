@@ -7,10 +7,11 @@ node {
     shell = load "lib/shell.groovy"
    
     def classesGroovy = load 'Classes.groovy'
-    def urlConfig = classesGroovy.URLConfig
+     def urlConfig = classesGroovy.URLConfig
     def urlConfigList=[]
     def urlConfigSplit=[]
     def urlList = new File(pwd()+'/autobuild.config') as String[]
+    
     for ( item in urlList ) {
       urlConfigSplit=  urlConfig.configSplit(item)
      urlConfigList.add(urlConfig.URLConfigItem(urlConfigSplit[0],urlConfigSplit[1], urlConfigSplit[2]))
@@ -20,6 +21,7 @@ node {
      echo "Building project in  "+item.repo+" with url  "+item.url+" using pom.xml file : "+item.pomPath
        
     def mvnHome
+    def cfDeployContent
     stage ('Clone') {
         git url: item.url
     }
@@ -39,16 +41,15 @@ node {
          echo 'final artifact to deploy in cf2' +pom.getArtifactId()
           echo 'final artifact to deploy in cf3' +pom.getArtifactId()
           echo 'final artifact to deploy in cf4' +pom.getVersion()
+               echo 'final artifact to deploy in cf4' +pom.getPackaging()
           
           def version=pom.getVersion()
           def artifactId=pom.getArtifactId()
-          def majorVersion=pom.getMajorVersion()
-          
           def hostName = "${artifactId}-v${version}".replace(".", "-")
-          def majorHostName = "${artifactId}-v${majorVersion}".replace(".", "-")
+        cfDeployContent=pwd()+"/"+pom.getArtifactId()+"/"+hostName+"."+pom.getPackaging()
           
           echo 'hostName ' +hostName
-          echo 'majorHostName ' +majorHostName
+        
 
      }
      
