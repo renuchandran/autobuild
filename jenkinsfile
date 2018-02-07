@@ -8,7 +8,7 @@ node {
     def urlConfigList=[]
     def urlList = new File(pwd()+'/autobuild.config') as String[]
     for ( item in urlList ) {
-     def (value1, value2,value3) = item.tokenize( '##' )
+     
      urlConfigList.add(urlConfig.URLConfigItem(value1,value2, value3))
      }
   
