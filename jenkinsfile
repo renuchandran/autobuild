@@ -13,11 +13,7 @@ def urlConfigList
  
 
  echo  "urlConfigList1.size"+urlConfigList.size()
-urlConfigList.collectEntries {
-        url -> it
-        echo it.repo
-    }
- 
+
 
     echo "loop ends-----------------------22"
 
@@ -28,9 +24,9 @@ urlConfigList.collectEntries {
     println item
 
         echo "loop ends-----------------------66"
-     urlConfigList.add(urlConfig.assign("1","2", "3"))
+     urlConfigList.add(urlConfig.URLConfigItem("1","2", "3"))
      echo  "urlConfigList2.size"+urlConfigList.size()
-      urlConfigList.add(urlConfig.assign("4","5", "6"))
+      urlConfigList.add(urlConfig.URLConfigItem("4","5", "6"))
       echo  "urlConfigList3.size"+urlConfigList.size()
   }
   echo  "urlConfigList4.size"+urlConfigList.size()
