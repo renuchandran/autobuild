@@ -1,13 +1,15 @@
 
-node {
-
-
 
 class URLConfig {
   String repo
   String url
   String pomPath
 }
+
+node {
+
+def urlConfigList = []
+
 
  echo "loop ends-----------------------11"
     stage ('Clone') {
