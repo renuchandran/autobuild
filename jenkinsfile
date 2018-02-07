@@ -32,6 +32,10 @@ def urlConfigList = []
     println item
     println index
     }
+    urlConfigList.collectEntries {
+        url -> it
+        echo it.repo
+    }
     
     
     
