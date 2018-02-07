@@ -20,12 +20,12 @@ def urlConfigList = []
     echo "loop ends-----------------------33"
     def urlList = new File(pwd()+'/autobuild.config') as String[]
     echo "loop ends-----------------------44"
-    urlList.each {
-        println it
-       
-       
-    }
-  
+    for ( item in urlList ) {
+    println item
+    def (value1, value2,value3) = item.tokenize( '##' )
+        echo "loop ends-----------------------66"
+        urlConfigList.add(new URLConfig(value1,value2, value3))
+  }
     
     
     
