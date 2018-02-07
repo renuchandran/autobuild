@@ -1,12 +1,15 @@
 
+node {
+
+
 @groovy.transform.Canonical 
 class URLConfig {
   String repo
   String url
   String pomPath
 }
+
  echo "loop ends-----------------------11"
-node {
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
