@@ -77,7 +77,7 @@ def getDomains(cfSpace, cfOrg, cfApiEndpoint) {
 def parseJson(url, cfApiEndpoint) {
     authenticate(cfApiEndpoint) {
         def contents = shell.pipe("cf curl \"${url}\"") as String
-        new JsonSlurper().parseText(contents)
+        new JsonSlurperClassic().parseText(contents)
     }
 }
 
