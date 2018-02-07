@@ -26,7 +26,7 @@ node {
          echo 'workspacePath>'+workspacePath
          def pomFile=workspacePath+item.pomPath
          
-         git url : ${item.url}
+         git url : item.url
          mvnHome = tool 'maven3'
          def pom = readMavenPom file: item.pomPath
          echo pom.version
