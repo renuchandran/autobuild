@@ -18,17 +18,17 @@ node {
        
     def mvnHome
     stage ('Clone') {
-        git url: ${item.url}
+        git url: item.url
     }
     stage('Build') {
          def workspace = pwd()
          def workspacePath= workspace.replace("Program Files (x86)", "PROGRA~2");
          echo 'workspacePath>'+workspacePath
-         def pomFile=workspacePath+${item.pomPath}
+         def pomFile=workspacePath+item.pomPath
          
          git url : ${item.url}
          mvnHome = tool 'maven3'
-         def pom = readMavenPom file: ${item.pomPath}
+         def pom = readMavenPom file: item.pomPath
          echo pom.version
          bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
      }
