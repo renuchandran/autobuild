@@ -1,16 +1,15 @@
 
 import groovy.json.JsonSlurper
 
-shell = load 'lib/shell.groovy'
-
+shell = load 'lib/
 def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint) {
     authenticate(cfApiEndpoint, cfOrg, cfSpace) {
         echo 'inside authenticate'
-        sh "cf push ${appName} -p ${appLocation} -n ${hostName} --no-start"
+        bat "cf push ${appName} -p ${appLocation} -n ${hostName} --no-start"
          echo 'inside authenticate1'
-        sh "cf set-env ${appName} VERSION ${version}"
+        bat "cf set-env ${appName} VERSION ${version}"
          echo 'inside authenticate2'
-        sh "cf start ${appName}"
+        bat "cf start ${appName}"
     }
 }
 
@@ -42,14 +41,14 @@ def mapRoute(appName, host, cfSpace, cfOrg, cfApiEndpoint) {
     def domains = getDomains(cfSpace, cfOrg, cfApiEndpoint)
     for(int i = 0; i < (domains.resources.size() as Integer); i++){
         authenticate(cfApiEndpoint, cfOrg, cfSpace) {
-            sh("cf map-route ${appName} ${domains.resources[i].entity.name} -n ${host}")
+            bat("cf map-route ${appName} ${domains.resources[i].entity.name} -n ${host}")
         }
     }
     if(activeAppName){
         input message: "Do you want to remove ${host} mapping from ${activeAppName}"
         for(int i = 0; i < (domains.resources.size() as Integer); i++){
             authenticate(cfApiEndpoint, cfOrg, cfSpace) {
-                sh("cf unmap-route ${activeAppName} ${domains.resources[i].entity.name} -n ${host}")
+                bat("cf unmap-route ${activeAppName} ${domains.resources[i].entity.name} -n ${host}")
             }
         }
     }
