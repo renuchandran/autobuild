@@ -1,6 +1,8 @@
 
 node {
-
+    stage ('Clone') {
+        git url: 'https://github.com/sadheeshkt/autobuild.git'
+    }
 
     def words = new File(pwd()+'/autobuild.config') as String[]
     words.each {
