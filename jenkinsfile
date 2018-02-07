@@ -23,6 +23,8 @@ node {
     def mvnHome
     def cfDeployContent
     def hostName 
+    def artifactId
+    def version
     stage ('Clone') {
         git url: item.url
     }
@@ -45,8 +47,8 @@ node {
           echo 'final artifact to deploy in cf4' +pom.getVersion()
                echo 'final artifact to deploy in cf4' +pom.getPackaging()
           
-          def version=pom.getVersion()
-          def artifactId=pom.getArtifactId()
+           version=pom.getVersion()
+           artifactId=pom.getArtifactId()
           hostName = "${artifactId}-${version}"
         cfDeployContent=workspacePath+"/"+pom.getArtifactId()+"/target/"+hostName+"."+pom.getPackaging()
           
