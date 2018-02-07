@@ -7,7 +7,7 @@ node {
    
  def classesGroovy = load 'Classes.groovy'
  def urlConfig = classesGroovy.URLConfig
-def urlConfigList
+def urlConfigList=[]
 
  echo  "urlConfigList1.size"+urlConfigList.size()
  
