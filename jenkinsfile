@@ -46,7 +46,7 @@ node {
           def version=pom.getVersion()
           def artifactId=pom.getArtifactId()
           def hostName = "${artifactId}-${version}"
-        cfDeployContent=pwd()+"/"+pom.getArtifactId()+"/target/"+hostName+"."+pom.getPackaging()
+        cfDeployContent=workspacePath+"/"+pom.getArtifactId()+"/target/"+hostName+"."+pom.getPackaging()
           
           echo 'cfDeployContent ' +cfDeployContent
         
