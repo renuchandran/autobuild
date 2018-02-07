@@ -31,13 +31,9 @@ def urlConfigList=[]
   }
   echo  "urlConfigList4.size"+urlConfigList.size()
     urlConfigList.eachWithIndex { item, index ->
-    println item
-    println index
+     echo "repo> "+item.repo+" url> "+item.url+" pomPath> "+item.pomPath
     }
-    urlConfigList.collectEntries {
-        url -> it
-        echo it.repo
-    }
+  
     
     
     
