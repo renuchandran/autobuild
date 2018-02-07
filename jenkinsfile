@@ -6,11 +6,21 @@ node {
     }
  def classesGroovy = load 'Classes.groovy'
  def urlConfig = classesGroovy.URLConfig
-def urlConfigList = []
+def urlConfigList
 
  echo  "urlConfigList1.size"+urlConfigList.size()
-
-
+ 
+ urlConfigList = [
+        new URLConfig ("1","SuperFly", "Trek"),
+        new URLConfig ("2","X-Caliber", "Trek"),
+        new URLConfig ("3","Big Daddy", "Huffy"),
+        new URLConfig ("4","CranBrook", "Huffy"),
+    ]
+ echo  "urlConfigList1.size"+urlConfigList.size()
+urlConfigList.collectEntries {
+        url -> it
+        echo it.repo
+    }
  
 
     echo "loop ends-----------------------22"
