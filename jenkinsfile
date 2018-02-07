@@ -55,11 +55,8 @@ node {
 
      }
       stage('deploy') {
-        unstash 'app-artifact'
-      
-
-        cloudfoundry.push(artifactId, hostName, cfDeployContent, version, cfSpace, cfOrg, cfApiEndpoint)
-        cloudfoundry.mapRoute(artifactId, hostName, cfSpace, cfOrg, cfApiEndpoint)
+        cloudfoundry.push(artifactId, hostName, cfDeployContent, version, "development", "sadheeshorg", "https://api.run.pivotal.io")
+        cloudfoundry.mapRoute(artifactId, hostName, "development", "sadheeshorg", "https://api.run.pivotal.io")
         }
      
    
