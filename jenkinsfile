@@ -1,5 +1,11 @@
 
 node {
+
+
+    def words = new File('autobuild.config') as String[]
+    words.each {
+        println it
+    }
     def mvnHome
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/spring-cld.git'
