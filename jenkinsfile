@@ -34,6 +34,7 @@ node {
          
          git url : item.url
          mvnHome = tool 'maven3'
+          mvnHome=mvnHome.replace("Program Files (x86)", "PROGRA~2");
          def pom = readMavenPom file: item.pomPath
          echo pom.version
          bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
