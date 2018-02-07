@@ -24,7 +24,7 @@ def urlConfigList = []
     println item
 
         echo "loop ends-----------------------66"
-     
+     urlConfigList.add(new URLConfig("1","2", "3"))
   }
     
     
