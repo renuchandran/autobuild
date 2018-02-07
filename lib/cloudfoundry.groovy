@@ -5,17 +5,24 @@ shell = load 'lib/shell.groovy'
 
 def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint) {
     authenticate(cfApiEndpoint, cfOrg, cfSpace) {
+        echo 'inside authenticate'
         sh "cf push ${appName} -p ${appLocation} -n ${hostName} --no-start"
+         echo 'inside authenticate1'
         sh "cf set-env ${appName} VERSION ${version}"
+         echo 'inside authenticate2'
         sh "cf start ${appName}"
     }
 }
 
 private authenticate(cfApiEndpoint, cfOrg=null, cfSpace=null, closure) {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "cloudfoundry-credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+         echo 'inside authenticate4'
         sh("cf api ${cfApiEndpoint}")
+         echo 'inside authenticate5'
         sh("cf auth ${env.USERNAME} ${env.PASSWORD}")
+         echo 'inside authenticate6'
         if (cfOrg && cfSpace) {
+             echo 'inside authenticate7'
             sh("cf target -o ${cfOrg}")
             sh("cf target -s ${cfSpace}")
         }
