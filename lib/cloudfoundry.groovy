@@ -1,5 +1,6 @@
 
 import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 shell = load 'lib/shell.groovy'
 
