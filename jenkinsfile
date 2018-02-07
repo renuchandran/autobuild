@@ -16,7 +16,7 @@ def urlConfigList = []
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
     echo "loop ends-----------------------22"
-    def urlConfigList
+
     echo "loop ends-----------------------33"
     def urlList = new File(pwd()+'/autobuild.config') as String[]
     echo "loop ends-----------------------44"
