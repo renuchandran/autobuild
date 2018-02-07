@@ -2,6 +2,11 @@ class URLConfig{
   String repo
   String url
   String pomPath
+  def assign(repo,url,pomPath){  
+    this.repo=repo
+    this.url=url
+    this.pomPath=pomPath
+  }
   
 }
 
@@ -15,3 +20,4 @@ Object getProperty(String name){
 } 
 
 return this
+
