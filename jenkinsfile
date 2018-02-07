@@ -4,21 +4,16 @@ node {
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/spring-cld.git'
     }
-     stage('Build') {
+    stage('Build') {
          def workspace = pwd()
-        // def workspacePath=URLEncoder.encode(workspace, "UTF-8").toString
          def workspacePath= workspace.replace("Program Files (x86)", "PROGRA~2");
-          echo 'workspace>'+workspace
- echo 'workspacePath>'+workspacePath
-         
- 
-         
+         echo 'workspacePath>'+workspacePath
          def pomFile=workspacePath+"/greeting-service/pom.xml"
-         echo 'pomFile>'+pomFile
-           git url : "https://github.com/sadheeshkt/spring-cld.git"
-             mvnHome = tool 'maven3'
-              def pom = readMavenPom file: 'greeting-service/pom.xml'
-            echo pom.version
-             bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
+         
+         git url : "https://github.com/sadheeshkt/spring-cld.git"
+         mvnHome = tool 'maven3'
+         def pom = readMavenPom file: 'greeting-service/pom.xml'
+         echo pom.version
+         bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
      }
 }
