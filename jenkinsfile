@@ -22,7 +22,10 @@ def urlConfigList = []
         echo "loop ends-----------------------66"
      urlConfigList.add(urlConfig.assign("1","2", "3"))
   }
-    
+    for ( item in urlConfigList ) { 
+        println item
+        echo "repo> "+it.repo+" url> "+it.url+" pomPath> "+it.pomPath
+    }
     
     
     
