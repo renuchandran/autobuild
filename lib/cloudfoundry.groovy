@@ -17,14 +17,14 @@ def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint)
 private authenticate(cfApiEndpoint, cfOrg=null, cfSpace=null, closure) {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "cloudfoundry-credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
          echo 'inside authenticate4'
-        sh("cf api ${cfApiEndpoint}")
+        bat("cf api ${cfApiEndpoint}")
          echo 'inside authenticate5'
-        sh("cf auth ${env.USERNAME} ${env.PASSWORD}")
+        bat("cf auth ${env.USERNAME} ${env.PASSWORD}")
          echo 'inside authenticate6'
         if (cfOrg && cfSpace) {
              echo 'inside authenticate7'
-            sh("cf target -o ${cfOrg}")
-            sh("cf target -s ${cfSpace}")
+            bat("cf target -o ${cfOrg}")
+            bat("cf target -s ${cfSpace}")
         }
         closure()
     }
