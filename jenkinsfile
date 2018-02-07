@@ -8,6 +8,8 @@ node {
  def urlConfig = classesGroovy.URLConfig
 def urlConfigList = []
 
+ echo  "urlConfigList1.size"+urlConfigList.size()
+
 
  
 
@@ -21,9 +23,11 @@ def urlConfigList = []
 
         echo "loop ends-----------------------66"
      urlConfigList.add(urlConfig.assign("1","2", "3"))
+     echo  "urlConfigList2.size"+urlConfigList.size()
       urlConfigList.add(urlConfig.assign("4","5", "6"))
+      echo  "urlConfigList3.size"+urlConfigList.size()
   }
-  
+  echo  "urlConfigList4.size"+urlConfigList.size()
     urlConfigList.eachWithIndex { item, index ->
     println item
     println index
