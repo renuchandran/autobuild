@@ -1,13 +1,33 @@
 
+@groovy.transform.Canonical 
+class URLConfig {
+  String repo
+  String url
+  String pomPath
+}
+
 node {
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
-
-    def words = new File(pwd()+'/autobuild.config') as String[]
-    words.each {
+    def urlConfigList
+    def urlList = new File(pwd()+'/autobuild.config') as String[]
+    urlList.each {
         println it
+        def (value1, value2,value3) = it.tokenize( '##' )
+        urlConfigList.add(new URLConfig(value1,value2, value3))
     }
+    echo "loop ends-----------------------"
+    urlConfigList.each {
+        println it
+        echo "repo> "+it.repo+" url> "+it.url+" pomPath> "+it.pomPath
+    }
+    
+    
+    
+    
+    
+    
     def mvnHome
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/spring-cld.git'
