@@ -11,7 +11,7 @@ node {
 def urlConfigList = []
 
 
- echo "loop ends-----------------------11"
+ 
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
@@ -25,14 +25,10 @@ def urlConfigList = []
         echo "loop ends-----------------------55"
         def (value1, value2,value3) = it.tokenize( '##' )
         echo "loop ends-----------------------66"
-        urlConfigList.add(new URLConfig(value1,value2, value3))
+         echo "value1> "+value1+" value2> "+ivalue2+" value3> "+value3
+       
     }
-    echo "loop ends-----------------------77"
-    echo "loop ends-----------------------88"
-    urlConfigList.each {
-        println it
-        echo "repo> "+it.repo+" url> "+it.url+" pomPath> "+it.pomPath
-    }
+  
     
     
     
