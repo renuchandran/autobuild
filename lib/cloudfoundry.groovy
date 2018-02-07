@@ -26,6 +26,7 @@ private authenticate(cfApiEndpoint, cfOrg=null, cfSpace=null, closure) {
             bat("cf target -o ${cfOrg}")
             bat("cf target -s ${cfSpace}")
         }
+        echo 'inside authenticate8'
         closure()
     }
 }
