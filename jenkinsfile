@@ -4,6 +4,19 @@ node {
     stage ('Clone') {
         git url: 'https://github.com/sadheeshkt/autobuild.git'
     }
+    @ToString
+class URLConfig {
+
+    def repo
+    def url
+   def pomPath
+
+    public URLConfig(String repo, String url, String pomPath) {
+        this.repo = repo
+        this.url = url
+        this.pomPath = pomPath
+    }
+}
  def classesGroovy = load 'Classes.groovy'
  def urlConfig = classesGroovy.URLConfig
 def urlConfigList
