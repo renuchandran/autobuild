@@ -7,6 +7,9 @@ class URLConfig{
     this.url=url
     this.pomPath=pomPath
   }
+   def repo(){ return this.repo }
+   def url(){ return this.url }
+   def pomPath(){ return this.pomPath }
   
 }
 
