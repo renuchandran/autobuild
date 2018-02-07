@@ -1,13 +1,8 @@
 
 
-class URLConfig {
-  String repo
-  String url
-  String pomPath
-}
-
 node {
-
+ def classesGroovy = load 'Classes.groovy'
+ def urlConfig = classesGroovy.URLConfig
 def urlConfigList = []
 
 
@@ -24,7 +19,7 @@ def urlConfigList = []
     println item
 
         echo "loop ends-----------------------66"
-     urlConfigList.add(new URLConfig("1","2", "3"))
+     urlConfigList.add(urlConfig.assign("1","2", "3"))
   }
     
     
