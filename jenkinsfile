@@ -35,7 +35,21 @@ node {
          echo pom.version
          bat "${mvnHome}/bin/mvn -f $pomFile clean compile package"
          echo '=================================================================================================='
-         echo 'final artifact to deploy in cf' +pom.getBuild().getDirectory()
+         echo 'final artifact to deploy in cf1' +pwd()
+         echo 'final artifact to deploy in cf2' +pom.getArtifactId()
+          echo 'final artifact to deploy in cf3' +pom.getArtifactId()
+          echo 'final artifact to deploy in cf4' +pom.getVersion()
+          
+          def version=pom.getVersion()
+          def artifactId=pom.getArtifactId()
+          def majorVersion=pom.getMajorVersion()
+          
+          def hostName = "${artifactId}-v${version}".replace(".", "-")
+          def majorHostName = "${artifactId}-v${majorVersion}".replace(".", "-")
+          
+          echo 'hostName ' +hostName
+          echo 'majorHostName ' +majorHostName
+
      }
      
    
