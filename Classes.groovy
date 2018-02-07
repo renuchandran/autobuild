@@ -1,4 +1,4 @@
-@ToString
+
 class URLConfig {
 
     def repo
