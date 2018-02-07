@@ -10,6 +10,10 @@ class URLConfig {
         this.url = url
         this.pomPath = pomPath
     }
+    public URLConfigItem(String repo, String url, String pomPath)
+    {
+        return  new URLConfig (repo,url, pomPath)
+    }
 }
 
 
