@@ -5,6 +5,7 @@ import groovy.json.JsonSlurperClassic
 shell = load 'lib/shell.groovy'
 
 def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint) {
+     bat "set HTTP_PROXY=http://437325:KTS291648_@proxy.cognizant.com:6050"
     authenticate(cfApiEndpoint, cfOrg, cfSpace) {
         bat "cf push ${appName} -p ${appLocation} -n ${hostName} --no-start"
         bat "cf set-env ${appName} VERSION ${version}"
@@ -14,6 +15,7 @@ def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint)
 
 private authenticate(cfApiEndpoint, cfOrg=null, cfSpace=null, closure) {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "cloudfoundry-credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+        bat "set HTTP_PROXY=http://437325:KTS291648_@proxy.cognizant.com:6050"
         bat("cf api ${cfApiEndpoint}")
         bat("cf auth ${env.USERNAME} ${env.PASSWORD}")
         if (cfOrg && cfSpace) {
