@@ -22,6 +22,9 @@ private authenticate(cfApiEndpoint, cfOrg=null, cfSpace=null, closure) {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "cloudfoundry-credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         bat "set HTTP_PROXY=http://437325:KTS291648_@proxy.cognizant.com:6050"
          echo "-----6"
+         bat "set http_proxy=http://437325:KTS291648_@proxy.cognizant.com:6050"
+        bat "set HTTPS_PROXY=http://437325:KTS291648_@proxy.cognizant.com:6050"
+            bat "set https_proxy=http://437325:KTS291648_@proxy.cognizant.com:6050"
         bat("cf api ${cfApiEndpoint}")
          echo "-----7"
         bat("cf auth ${env.USERNAME} ${env.PASSWORD}")
