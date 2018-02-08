@@ -6,22 +6,33 @@ shell = load 'lib/shell.groovy'
 
 def push(appName, hostName, appLocation, version, cfSpace, cfOrg, cfApiEndpoint) {
      bat "set HTTP_PROXY=http://437325:KTS291648_@proxy.cognizant.com:6050"
+     echo "-----1"
     authenticate(cfApiEndpoint, cfOrg, cfSpace) {
+         echo "-----2"
         bat "cf push ${appName} -p ${appLocation} -n ${hostName} --no-start"
+         echo "-----3"
         bat "cf set-env ${appName} VERSION ${version}"
+         echo "-----4"
         bat "cf start ${appName}"
+         echo "-----5"
     }
 }
 
 private authenticate(cfApiEndpoint, cfOrg=null, cfSpace=null, closure) {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "cloudfoundry-credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         bat "set HTTP_PROXY=http://437325:KTS291648_@proxy.cognizant.com:6050"
+         echo "-----6"
         bat("cf api ${cfApiEndpoint}")
+         echo "-----7"
         bat("cf auth ${env.USERNAME} ${env.PASSWORD}")
+         echo "-----8"
         if (cfOrg && cfSpace) {
             bat("cf target -o ${cfOrg}")
+             echo "-----10"
             bat("cf target -s ${cfSpace}")
+             echo "-----11"
         }
+         echo "-----12"
         closure()
     }
 }
