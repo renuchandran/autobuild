@@ -27,12 +27,21 @@ node {
         def hostName 
         def artifactId
         def version
+        def workspace = pwd()
+        def buildTool
         
         stage ('Clone') {
             git url: item.url
         }
+        stage ('Build_Tool') {
+            def yamlFile=workspace+"/application.yaml"
+            echo "yamlFile>"+yamlFile
+            buildTool = readMavenPom file:yamlFile text:"Build" 
+            echo "buildTool>"+buildTool
+            
+        }
         stage('Build') {
-         def workspace = pwd()
+        
          def workspacePath= workspace.replace("Program Files (x86)", "PROGRA~2");
          def pomFile=workspacePath+"/"+item.pomPath
          git url : item.url
